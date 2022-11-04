@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        speed = 10;
+        speed = 7;
         jumpForce = 17;
     }
     void Update()
@@ -30,12 +30,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            jumpForce = jumpForce * -1;
-            rb.gravityScale = rb.gravityScale * -1;
         }
     }
 
@@ -57,6 +51,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("End"))
         {
             SceneManager.LoadScene("PlayAgainWon");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Hit a Gravity inverter
+        if (collision.gameObject.CompareTag("Gravity"))
+        {
+            jumpForce = jumpForce * -1;
+            rb.gravityScale = rb.gravityScale * -1;
         }
     }
 }

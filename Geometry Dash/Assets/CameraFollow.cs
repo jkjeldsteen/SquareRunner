@@ -6,6 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
     public Vector2 offset;
+    public float minX;
+    public float maxX;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,18 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x + offset.x, 0, -10);
+        if (player.transform.position.x <= minX)
+        {
+            transform.position = new Vector3(minX, 0, -10);
+        }
+        else if (player.transform.position.x >= maxX)
+        {
+            transform.position = new Vector3(maxX, 0, -10);
+        }
+        else
+        {
+            transform.position = new Vector3(player.transform.position.x + offset.x, 0, -10);
+        }
+
     }
 }
